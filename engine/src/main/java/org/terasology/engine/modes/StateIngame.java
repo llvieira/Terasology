@@ -112,12 +112,12 @@ public class StateIngame implements GameState {
     }
 
     @Override
-    public void dispose(boolean shuttingDown) {
+    public void dispose(boolean shuttingDown, boolean isReplayTestRunning) {
         ChunkProvider chunkProvider = context.get(ChunkProvider.class);
         chunkProvider.dispose();
 
         boolean save = networkSystem.getMode().isAuthority();
-        if (save) {
+        if (save && !isReplayTestRunning) {
             storageManager.waitForCompletionOfPreviousSaveAndStartSaving();
         }
 

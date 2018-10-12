@@ -230,7 +230,7 @@ public class TerasologyEngine implements GameEngine {
             CoreRegistry.setContext(null);
         } catch (RuntimeException e) {
             logger.error("Failed to initialise Terasology", e);
-            cleanup();
+            cleanup(false);
             throw e;
         }
 
@@ -400,7 +400,7 @@ public class TerasologyEngine implements GameEngine {
             throw e;
         } finally {
             try {
-                cleanup();
+                cleanup(false);
             } catch (RuntimeException t) {
                 logger.error("Clean game shutdown after an uncaught exception failed", t);
             }
@@ -474,12 +474,12 @@ public class TerasologyEngine implements GameEngine {
         return true;
     }
 
-    public void cleanup() {
+    public void cleanup(boolean isReplayTestRunning) {
         logger.info("Shutting down Terasology...");
         changeStatus(StandardGameStatus.SHUTTING_DOWN);
 
         if (currentState != null) {
-            currentState.dispose(true);
+            currentState.dispose(true, isReplayTestRunning);
             currentState = null;
         }
 

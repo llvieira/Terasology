@@ -225,7 +225,7 @@ public class StateLoading implements GameState {
     }
 
     @Override
-    public void dispose(boolean shuttingDown) {
+    public void dispose(boolean shuttingDown, boolean isReplayTestRunning) {
         EngineTime time = (EngineTime) context.get(Time.class);
         time.setPaused(false);
     }

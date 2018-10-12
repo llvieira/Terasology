@@ -147,7 +147,7 @@ public class StateHeadlessSetup implements GameState {
     }
 
     @Override
-    public void dispose(boolean shuttingDown) {
+    public void dispose(boolean shuttingDown, boolean isReplayTestRunning) {
         eventSystem.process();
 
         componentSystemManager.shutdown();
